@@ -1,41 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Your Shopping Cart | My Dummy Store</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Cart - GadgetHub</title>
+  <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
-    <header>
-        <h1><a href="index.html">My Dummy Store</a></h1>
-        <nav>
-            <a href="cart.html">View Cart (<span id="cart-count">0</span>)</a>
-        </nav>
-    </header>
 
-    <main>
-        <h2>Your Shopping Cart</h2>
-        <ul id="cart-items">
-            </ul>
-        
-        <div class="cart-summary">
-            <h3>Subtotal: $<span id="cart-total">0.00</span></h3>
-            <p>Shipping and taxes calculated at checkout.</p>
-            <a href="checkout.html" class="checkout-link">
-                <button id="proceed-to-checkout-btn">Proceed to Checkout</button>
-            </a>
-        </div>
-    </main>
+<body class="dark">
 
-    <footer>
-        <p><a href="index.html">Continue Shopping</a></p>
-    </footer>
+<header class="header">
+  <h1>Your Cart</h1>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="cart.html">Cart</a>
+    <a href="thankyou.html">Thank You</a>
+  </nav>
+</header>
 
-    <script src="script.js"></script>
-    <script>
-        // Ensure the cart content and header count are updated on this page
-        document.addEventListener('DOMContentLoaded', updateCartPage); 
-        updateCartDisplay();
-    </script>
+<section class="cart">
+  <p>Your cart is empty (dummy site 😊)</p>
+  <a href="products.html" class="btn-primary">Continue Shopping</a>
+  <a href="thankyou.html" class="btn-secondary">Checkout</a>
+</section>
+
+<footer class="footer">
+  <p>© 2025 GadgetHub</p>
+</footer>
+
 </body>
 </html>
