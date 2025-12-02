@@ -1,33 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Home | My Dummy Store</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo Store - Home</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>
-        <h1><a href="index.html">My Dummy Store</a></h1>
-        <nav>
-            <a href="cart.html">View Cart (<span id="cart-count">0</span>)</a>
-        </nav>
-    </header>
+  <header>
+    <h1>Demo Store</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="cart.html">Cart</a>
+    </nav>
+  </header>
 
-    <main id="products-container">
-    <h2>Featured Products</h2>
-    <div id="product-list">
-        </div>
-</main>
+  <section class="hero">
+    <h2>Welcome to Demo Store</h2>
+    <p>Practice GA4, GTM & Cross-Domain Tracking</p>
+    <a class="btn" href="products.html">Shop Now</a>
+  </section>
 
-    <footer>
-        <p>&copy; 2025 Dummy E-Commerce</p>
-    </footer>
-
-    <script src="script.js"></script>
-    <script>
-        // Only run the product rendering function on the index page
-        document.addEventListener('DOMContentLoaded', renderProducts);
-        updateCartDisplay(); // Update cart count in header
-    </script>
+  <footer>
+    <p>© 2025 Demo Store</p>
+  </footer>
 </body>
 </html>
