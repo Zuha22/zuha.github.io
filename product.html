@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Details | My Dummy Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">My Dummy Store</a></h1>
+        <nav>
+            <a href="cart.html">View Cart (<span id="cart-count">0</span>)</a>
+        </nav>
+    </header>
+
+    <main id="product-details">
+        <div id="product-info-card">
+            <h2>Product Name Goes Here</h2>
+            <p>Description: This is a detailed description of the product, its features, and specifications. It's the perfect dummy item for your needs!</p>
+            <p class="price-large">$XX.XX</p>
+            <button onclick="addToCart(1)">Add to Cart</button> 
+        </div>
+    </main>
+
+    <footer>
+        <p><a href="index.html">Back to Shopping</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        updateCartDisplay(); // Update cart count in header
+        // In a real app, you'd call a function here to load a specific product based on the URL
+    </script>
+</body>
+</html>
