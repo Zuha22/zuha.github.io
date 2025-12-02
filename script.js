@@ -1,9 +1,9 @@
 // Product Data Array
 const products = [
-    { id: 1, name: "Premium Coffee Maker", price: 49.99 },
-    { id: 2, name: "Noise-Cancelling Headphones", price: 99.99 },
-    { id: 3, name: "Mechanical Keyboard", price: 75.00 },
-    { id: 4, name: "Smart Watch", price: 129.99 }
+    { id: 1, name: "Premium Coffee Maker", price: 49.99: "images/coffee_maker.jpeg" },
+    { id: 2, name: "Noise-Cancelling Headphones", price: 99.99: "images/headphones.jpeg" },
+    { id: 3, name: "Mechanical Keyboard", price: 75.00 : "images/keyborad.jpeg"},
+    { id: 4, name: "Smart Watch", price: 129.99: "images/smart_watch.jpeg" }
 ];
 
 // Load cart from localStorage or initialize as empty
