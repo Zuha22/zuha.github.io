@@ -1,35 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Product Details | My Dummy Store</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Products - GadgetHub</title>
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
-<body>
-    <header>
-        <h1><a href="index.html">My Dummy Store</a></h1>
-        <nav>
-            <a href="cart.html">View Cart (<span id="cart-count">0</span>)</a>
-        </nav>
-    </header>
+<body class="dark">
 
-    <main id="product-details">
-        <div id="product-info-card">
-            <h2>Product Name Goes Here</h2>
-            <p>Description: This is a detailed description of the product, its features, and specifications. It's the perfect dummy item for your needs!</p>
-            <p class="price-large">$XX.XX</p>
-            <button onclick="addToCart(1)">Add to Cart</button> 
-        </div>
-    </main>
+<header class="header">
+  <h1>GadgetHub</h1>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="cart.html">Cart</a>
+    <a href="thankyou.html">Thank You</a>
+  </nav>
+</header>
 
-    <footer>
-        <p><a href="index.html">Back to Shopping</a></p>
-    </footer>
+<section class="product-grid">
 
-    <script src="script.js"></script>
-    <script>
-        updateCartDisplay(); // Update cart count in header
-        // In a real app, you'd call a function here to load a specific product based on the URL
-    </script>
+  <div class="product-card">
+    <img src="assets/img/keyboard.jpg" alt="">
+    <h3>RGB Keyboard</h3>
+    <p class="price">€60</p>
+    <a href="cart.html" class="btn-secondary">Add to Cart</a>
+    <a href="cart.html" class="btn-primary">Buy Now</a>
+  </div>
+
+  <div class="product-card">
+    <img src="assets/img/headphones.jpg" alt="">
+    <h3>Wireless Headphones</h3>
+    <p class="price">€40</p>
+    <a href="cart.html" class="btn-secondary">Add to Cart</a>
+    <a href="cart.html" class="btn-primary">Buy Now</a>
+  </div>
+
+  <div class="product-card">
+    <img src="assets/img/smartwatch.jpg" alt="">
+    <h3>Smart Watch</h3>
+    <p class="price">€700</p>
+    <a href="cart.html" class="btn-secondary">Add to Cart</a>
+    <a href="cart.html" class="btn-primary">Buy Now</a>
+  </div>
+
+  <div class="product-card">
+    <img src="assets/img/coffeemaker.jpg" alt="">
+    <h3>Coffee Maker</h3>
+    <p class="price">€30</p>
+    <a href="cart.html" class="btn-secondary">Add to Cart</a>
+    <a href="cart.html" class="btn-primary">Buy Now</a>
+  </div>
+
+</section>
+
+<footer class="footer">
+  <p>© 2025 GadgetHub</p>
+</footer>
+
 </body>
 </html>
