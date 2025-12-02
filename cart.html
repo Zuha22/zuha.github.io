@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Shopping Cart | My Dummy Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">My Dummy Store</a></h1>
+        <nav>
+            <a href="cart.html">View Cart (<span id="cart-count">0</span>)</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Your Shopping Cart</h2>
+        <ul id="cart-items">
+            </ul>
+        
+        <div class="cart-summary">
+            <h3>Subtotal: $<span id="cart-total">0.00</span></h3>
+            <p>Shipping and taxes calculated at checkout.</p>
+            <a href="checkout.html" class="checkout-link">
+                <button id="proceed-to-checkout-btn">Proceed to Checkout</button>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p><a href="index.html">Continue Shopping</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Ensure the cart content and header count are updated on this page
+        document.addEventListener('DOMContentLoaded', updateCartPage); 
+        updateCartDisplay();
+    </script>
+</body>
+</html>
