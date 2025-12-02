@@ -115,3 +115,73 @@ checkoutBtn.onclick = () => {
 // --- Initialization ---
 renderProducts();
 updateCartDisplay();
+
+// Function to render items specifically on the cart.html page
+function updateCartPage() {
+    const cartPageItemsUl = document.getElementById('cart-items');
+    const cartPageTotalSpan = document.getElementById('cart-total');
+    
+    // Check if the required elements for the cart page exist
+    if (!cartPageItemsUl || !cartPageTotalSpan) return; 
+
+    cartPageItemsUl.innerHTML = '';
+    let total = 0;
+
+    if (cart.length === 0) {
+        cartPageItemsUl.innerHTML = '<li>Your cart is empty. <a href="index.html">Start shopping!</a></li>';
+        document.getElementById('proceed-to-checkout-btn').disabled = true;
+    } else {
+        document.getElementById('proceed-to-checkout-btn').disabled = false;
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'cart-item-detail';
+            li.innerHTML = `
+                ${item.name} 
+                (Qty: ${item.quantity}) 
+                - $${(item.price * item.quantity).toFixed(2)}
+                <button onclick="removeItem(${item.id})">Remove</button>
+            `;
+            cartPageItemsUl.appendChild(li);
+            total += item.price * item.quantity;
+        });
+    }
+
+    cartPageTotalSpan.textContent = total.toFixed(2);
+}
+
+// Function to remove an item from the cart
+window.removeItem = function(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    saveCart();
+    updateCartDisplay();
+    updateCartPage(); // Refresh the cart page content
+}
+
+// Function for the final simulated checkout on checkout.html
+window.simulatedCheckout = function() {
+    if (cart.length === 0) {
+        alert("Cannot checkout: Your cart is empty.");
+        return;
+    }
+
+    // --- SIMULATION STEP ---
+    alert(`Order placed successfully for $${document.getElementById('final-total').textContent}! (This is a simulation. No real payment was processed.)`);
+    
+    // Clear the cart
+    cart = [];
+    saveCart();
+    updateCartDisplay();
+    // Redirect user back to the home page after "purchase"
+    window.location.href = 'index.html';
+}
+
+// Ensure the product cards link to product.html (update this in renderProducts)
+function renderProducts() {
+    // ... (existing code for rendering products) ...
+    card.innerHTML = `
+        <h3><a href="product.html?id=${product.id}">${product.name}</a></h3>
+        <p>$${product.price.toFixed(2)}</p>
+        <button onclick="addToCart(${product.id})">Add to Cart</button>
+    `;
+    // ...
+}
