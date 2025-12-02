@@ -1,10 +1,10 @@
 // Product Data Array
 const products = [
     // Change "images/coffee.jpg" to the actual file name
-    { id: 1, name: "Premium Coffee Maker", price: 49.99, image: "coffee_maker.jpeg" }, 
-    { id: 2, name: "Noise-Cancelling Headphones", price: 99.99, image: "headphones.jpeg" },
-    { id: 3, name: "Mechanical Keyboard", price: 75.00, image: "keyboard.jpeg" },
-    { id: 4, name: "Luxury Smart Watch", price: 129.99, image: "smart_watch.jpeg" }
+    { id: 1, name: "Premium Coffee Maker", price: 49.99, image: "images/coffee_maker.jpeg" }, 
+    { id: 2, name: "Noise-Cancelling Headphones", price: 99.99, image: "images/headphones.jpeg" },
+    { id: 3, name: "Mechanical Keyboard", price: 75.00, image: "images/keyboard.jpeg" },
+    { id: 4, name: "Luxury Smart Watch", price: 129.99, image: "images/smart_watch.jpeg" }
 ];
 
 // Load cart from localStorage or initialize as empty
