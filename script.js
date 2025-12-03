@@ -1,55 +1,16 @@
-const navbar = document.querySelector(".navbar");
-const menuBtn = document.querySelector("#menu-btn");
-const slides = document.querySelectorAll(".home .slides-container .slide");
-const header = document.querySelector(".header");
+jQuery("#content1-headline1").fitText(1.0);
+jQuery("#content1-headline2").fitText(1.0);
+jQuery("#content1-headline3").fitText(1.0);
+jQuery("#content2-1").fitText(2.0);
+jQuery("#content2-2").fitText(2.0);
+jQuery("#footer1").fitText(1.2);
+jQuery("#footer2").fitText(1.2);
+jQuery("#footer3").fitText(1.2);
 
-let index = 0;
-
-// JavaScript to toggle the
-// visibility of the navigation menu
-document.addEventListener("DOMContentLoaded",
-	function () {
-		const hamburger = document.getElementById("hamburger");
-		const navbar = document.querySelector(".navbar");
-
-		hamburger.addEventListener("click", function () {
-			navbar.classList.toggle("active");
-		});
-	});
-
-window.addEventListener("scroll", () => {
-	navbar.classList.remove("active");
-});
-
-function showSlide(nextIndex) {
-	slides[index].classList.remove("active");
-	index = (nextIndex + slides.length) % slides.length;
-	slides[index].classList.add("active");
-}
-
-function next() {
-	showSlide(index + 1);
-}
-
-function prev() {
-	showSlide(index - 1);
-}
-// ADD TO CART EVENT
-document.querySelectorAll(".add-to-cart").forEach(button => {
-  button.addEventListener("click", () => {
-
-    let name = button.getAttribute("data-name");
-    let price = button.getAttribute("data-price");
-
-    // Get current cart
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    // Add new item
-    cart.push({ name, price });
-
-    // Save back to localStorage
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    alert(name + " added to cart!");
-  });
+window.addEventListener("resize", function(){
+     if (document.documentElement.clientWidth <= 430) {
+    $(".navbar-brand").html("<img src='https://res.cloudinary.com/dbqqjaqqa/image/upload/v1489761620/logo_mini_pou3vz.png'>");
+	} else {
+    $(".navbar-brand").html("<img src='https://res.cloudinary.com/dbqqjaqqa/image/upload/v1489836162/smaller_size_logo_wigzr1.png'>");
+  }
 });
