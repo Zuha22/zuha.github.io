@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Cart</title>
+</head>
+
+<body>
+  <h1>Your Cart</h1>
+
+  <div id="cart"></div>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+    let html = "<ul>";
+    cart.forEach(item => {
+      html += <li>${item.name} - $${item.price}</li>;
+    });
+    html += "</ul>";
+
+    document.getElementById("cart").innerHTML = html;
+  </script>
+
+</body>
+</html>
