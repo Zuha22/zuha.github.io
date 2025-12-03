@@ -34,3 +34,22 @@ function next() {
 function prev() {
 	showSlide(index - 1);
 }
+// ADD TO CART EVENT
+document.querySelectorAll(".add-to-cart").forEach(button => {
+  button.addEventListener("click", () => {
+
+    let name = button.getAttribute("data-name");
+    let price = button.getAttribute("data-price");
+
+    // Get current cart
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Add new item
+    cart.push({ name, price });
+
+    // Save back to localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert(name + " added to cart!");
+  });
+});
