@@ -1,25 +1,35 @@
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+// Load existing cart from localStorage
+let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
+// Add item to cart
 function addToCart(name, price) {
-  cart.push({name, price});
+  cart.push({ name, price });
   localStorage.setItem("cart", JSON.stringify(cart));
   alert(name + " added to cart");
 }
 
-// display cart page
-if (location.pathname.includes("cart.html")) {
-  let table = document.getElementById("cartTable");
-  let total = 0;
+// Display cart only on cart page
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.location.pathname.includes("cart.html")) {
 
-  cart.forEach(item => {
-    let row = table.insertRow();
-    row.insertCell(0).innerHTML = item.name;
-    row.insertCell(1).innerHTML = "₹" + item.price;
-    total += item.price;
-  });
+    let table = document.getElementById("cartTable");
+    let total = 0;
 
-  document.getElementById("total").innerHTML = "Total: ₹" + total;
-}
+    if (!cart.length) {
+      table.insertRow().innerHTML = "<td colspan='2'>No items in cart</td>";
+      return;
+    }
+
+    cart.forEach(item => {
+      let row = table.insertRow();
+      row.insertCell(0).innerHTML = item.name;
+      row.insertCell(1).innerHTML = "₹" + item.price;
+      total += item.price;
+    });
+
+    document.getElementById("total").innerHTML = "Total: ₹" + total;
+  }
+});
 jQuery("#content1-headline1").fitText(1.0);
 jQuery("#content1-headline2").fitText(1.0);
 jQuery("#content1-headline3").fitText(1.0);
