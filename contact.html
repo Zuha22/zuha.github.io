@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Cake Shop</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="cart.html">Cart</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="contact">
+  <h2>Contact Us</h2>
+
+  <form id="contactForm">
+
+    <input type="text" placeholder="Your Name" required>
+
+    <input type="email" placeholder="Your Email" required>
+
+    <input type="tel" placeholder="Phone Number" required>
+
+    <textarea placeholder="Your message..." required></textarea>
+
+    <button type="submit">Send</button>
+
+  </form>
+</section>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  alert("Thanks! We'll get back to you soon.");
+  this.reset();
+});
+</script>
+
+</body>
+</html>
