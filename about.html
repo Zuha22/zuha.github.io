@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sweet Delights Bakery - About</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* ... (Same CSS as index.html, exclude .product-card and .btn-primary hover if they aren't used) ... */
+    body { box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; width: 100%; }
+    .cart-badge {
+      min-width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+ </head>
+ <body>
+  <div id="app" style="width: 100%; height: 100%; display: flex; flex-direction: column;">
+    <nav id="navbar" style="width: 100%; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <div>
+        <h1 id="shop-name" style="font-size: 28px; font-weight: bold; margin: 0;">Sweet Delights Bakery</h1>
+        <p id="tagline" style="font-size: 14px; margin: 4px 0 0 0; opacity: 0.8;">Freshly Baked with Love</p>
+      </div>
+      <div style="display: flex; gap: 32px; align-items: center;">
+        <a href="index.html" class="nav-link" style="text-decoration: none; font-weight: 500; font-size: 16px; transition: opacity 0.2s;">Home</a>
+        <a href="about.html" class="nav-link" style="text-decoration: none; font-weight: 500; font-size: 16px; transition: opacity 0.2s;">About</a>
+        <a href="contact.html" class="nav-link" style="text-decoration: none; font-weight: 500; font-size: 16px; transition: opacity 0.2s;">Contact</a>
+        <a href="cart.html" class="nav-link" style="text-decoration: none; font-weight: 500; font-size: 16px; position: relative; transition: opacity 0.2s;">
+          Cart
+          <span id="cart-badge" class="cart-badge" style="position: absolute; top: -8px; right: -12px; border-radius: 10px; font-size: 12px; font-weight: bold; padding: 2px 6px;">0</span>
+        </a>
+      </div>
+    </nav>
+    
+    <main style="flex: 1; overflow-y: auto; width: 100%;">
+      <div style="width: 100%; padding: 60px 40px;">
+        <div style="max-width: 800px; margin: 0 auto;">
+          <h2 style="font-size: 48px; font-weight: bold; margin-bottom: 32px; text-align: center;">About Us</h2>
+          <div style="background: white; padding: 48px; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+            <p id="about-description" style="font-size: 18px; line-height: 1.8; margin-bottom: 24px;">Welcome to Sweet Delights Bakery! For over 15 years, we've been crafting the finest cakes using traditional recipes and premium ingredients. Each cake is made fresh daily with love and attention to detail.</p>
+            <p style="font-size: 18px; line-height: 1.8; margin-bottom: 24px;">Our passionate team of bakers brings years of experience and creativity to every creation. From classic flavors to custom designs, we're here to make your celebrations extra special.</p>
+            <p style="font-size: 18px; line-height: 1.8;">Visit us today and taste the difference that quality ingredients and expert craftsmanship make!</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script>
+    // Include the same defaultConfig, getCart, saveCart, updateCartBadge, onConfigChange (with only the styling and badge update parts), and init functions from index.html. 
+    // You can remove all product-related logic (products array, renderProducts, addToCart) as they are not needed here.
+    
+    const defaultConfig = { /* ... same as index.html ... */ 
+      background_color: "#fef3f3", surface_color: "#ffffff", text_color: "#1f2937", primary_action_color: "#ec4899", secondary_action_color: "#f472b6", font_family: "ui-sans-serif, system-ui, -apple-system, sans-serif", font_size: 16, shop_name: "Sweet Delights Bakery", tagline: "Freshly Baked with Love", about_text: "Welcome to Sweet Delights Bakery! For over 15 years, we've been crafting the finest cakes using traditional recipes and premium ingredients. Each cake is made fresh daily with love and attention to detail.", contact_heading: "Get In Touch"
+    };
+    let contactSubmissions = [];
+    const dataHandler = { onDataChanged(data) { contactSubmissions = data; } };
+
+    function getCart() { /* ... same as index.html ... */ 
+      try {
+        const cartData = localStorage.getItem('cakeShopCart');
+        return cartData ? JSON.parse(cartData) : [];
+      } catch (e) {
+        console.error("Error reading cart from localStorage:", e);
+        return [];
+      }
+    }
+    function saveCart(cart) { /* ... same as index.html ... */ 
+      try {
+        localStorage.setItem('cakeShopCart', JSON.stringify(cart));
+      } catch (e) {
+        console.error("Error saving cart to localStorage:", e);
+      }
+    }
+    function updateCartBadge() { /* ... same as index.html ... */ 
+      const cart = getCart();
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById('cart-badge').textContent = totalItems;
+    }
+
+    async function onConfigChange(config) {
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseFontStack = 'ui-sans-serif, system-ui, -apple-system, sans-serif';
+      const baseSize = config.font_size || defaultConfig.font_size;
+      
+      document.body.style.background = config.background_color || defaultConfig.background_color;
+      document.body.style.color = config.text_color || defaultConfig.text_color;
+      document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      
+      document.getElementById('navbar').style.background = config.surface_color || defaultConfig.surface_color;
+      document.getElementById('navbar').style.color = config.text_color || defaultConfig.text_color;
+      
+      document.getElementById('shop-name').style.fontSize = `${baseSize * 1.75}px`;
+      document.getElementById('tagline').style.fontSize = `${baseSize * 0.875}px`;
+      
+      document.getElementById('shop-name').textContent = config.shop_name || defaultConfig.shop_name;
+      document.getElementById('tagline').textContent = config.tagline || defaultConfig.tagline;
+      document.getElementById('about-description').textContent = config.about_text || defaultConfig.about_text; // Specific to about page
+      
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.style.color = config.text_color || defaultConfig.text_color;
+        link.style.fontSize = `${baseSize}px`;
+      });
+      
+      const cartBadge = document.getElementById('cart-badge');
+      cartBadge.style.background = config.primary_action_color || defaultConfig.primary_action_color;
+      cartBadge.style.color = config.surface_color || defaultConfig.surface_color;
+      
+      const allH2 = document.querySelectorAll('h2');
+      allH2.forEach(h2 => {
+        h2.style.fontSize = `${baseSize * 3}px`;
+        h2.style.color = config.text_color || defaultConfig.text_color;
+      });
+      
+      const allParagraphs = document.querySelectorAll('p');
+      allParagraphs.forEach(p => {
+        if (!p.id) {
+          p.style.fontSize = `${baseSize * 1.125}px`;
+        }
+      });
+      
+      updateCartBadge();
+    }
+    
+    // Copy the init function structure from index.html (including elementSdk setup)
+    async function init() {
+      if (window.dataSdk) {
+        const initResult = await window.dataSdk.init(dataHandler);
+        if (!initResult.isOk) {
+          console.error('Failed to initialize data SDK');
+        }
+      }
+      
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange,
+          mapToCapabilities: (config) => ({
+            recolorables: [
+              { get: () => config.background_color || defaultConfig.background_color, set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); } },
+              { get: () => config.surface_color || defaultConfig.surface_color, set: (value) => { config.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); } },
+              { get: () => config.text_color || defaultConfig.text_color, set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); } },
+              { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (value) => { config.primary_action_color = value; window.elementSdk.setConfig({ primary_action_color: value }); } },
+              { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (value) => { config.secondary_action_color = value; window.elementSdk.setConfig({ secondary_action_color: value }); } }
+            ],
+            borderables: [],
+            fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (value) => { config.font_family = value; window.elementSdk.setConfig({ font_family: value }); } },
+            fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (value) => { config.font_size = value; window.elementSdk.setConfig({ font_size: value }); } }
+          }),
+          mapToEditPanelValues: (config) => new Map([
+            ["shop_name", config.shop_name || defaultConfig.shop_name],
+            ["tagline", config.tagline || defaultConfig.tagline],
+            ["about_text", config.about_text || defaultConfig.about_text],
+            ["contact_heading", config.contact_heading || defaultConfig.contact_heading]
+          ])
+        });
+      }
+      
+      await onConfigChange(window.elementSdk?.config || defaultConfig);
+    }
+
+    init();
+  </script>
+ </body>
+</html>
