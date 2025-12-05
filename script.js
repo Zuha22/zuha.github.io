@@ -1,7 +1,7 @@
-// Load existing cart from localStorage
+// Load cart from localStorage
 let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-// Add item to cart
+// Add to cart function
 function addToCart(name, price) {
   cart.push({ name, price });
   localStorage.setItem("cart", JSON.stringify(cart));
@@ -30,21 +30,5 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("total").innerHTML = "Total: ₹" + total;
   }
 });
-jQuery("#content1-headline1").fitText(1.0);
-jQuery("#content1-headline2").fitText(1.0);
-jQuery("#content1-headline3").fitText(1.0);
-jQuery("#content2-1").fitText(2.0);
-jQuery("#content2-2").fitText(2.0);
-jQuery("#footer1").fitText(1.2);
-jQuery("#footer2").fitText(1.2);
-jQuery("#footer3").fitText(1.2);
 
-window.addEventListener("resize", function(){
-     if (document.documentElement.clientWidth <= 430) {
-    $(".navbar-brand").html("<img src='https://res.cloudinary.com/dbqqjaqqa/image/upload/v1489761620/logo_mini_pou3vz.png'>");
-	} else {
-    $(".navbar-brand").html("<img src='https://res.cloudinary.com/dbqqjaqqa/image/upload/v1489836162/smaller_size_logo_wigzr1.png'>");
-  }
-});
-<script src="script.js"></script>
 
