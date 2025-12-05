@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sweet Delights Bakery - Home</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; width: 100%; }
+    .cart-badge {
+      min-width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-card {
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .btn-primary {
+      transition: all 0.2s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #10b981;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+      animation: slideIn 0.3s ease-out;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(400px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+  </style>
+ </head>
+ <body>
+  <div id="app" style="width: 100%; height: 100%; display: flex; flex-direction: column;">
+    <nav id="navbar" style="width: 100%; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <div>
+        <h1 id="shop-name" style="font-size: 28px; font-weight: bold; margin: 0;">Sweet Delights Bakery</h1>
+        <p id="tagline" style="font-size: 14px; margin: 4px 0 0 0; opacity: 0.8;">Freshly Baked with Love</p>
+      </div>
+      <div style="display: flex; gap: 32px; align-items: center;">
+        <a href="index.html" class="nav-link" style="text-decoration: none; font-weight: 500; font-size: 16px; transition: opacity 0.2s;">Home</a>
+        <a href="about.html" class="nav-link" style="text-decoration: none; font-weight: 500; font-size: 16px; transition: opacity 0.2s;">About</a>
+        <a href="contact.html" class="nav-link" style="text-decoration: none; font-weight: 500; font-size: 16px; transition: opacity 0.2s;">Contact</a>
+        <a href="cart.html" class="nav-link" style="text-decoration: none; font-weight: 500; font-size: 16px; position: relative; transition: opacity 0.2s;">
+          Cart
+          <span id="cart-badge" class="cart-badge" style="position: absolute; top: -8px; right: -12px; border-radius: 10px; font-size: 12px; font-weight: bold; padding: 2px 6px;">0</span>
+        </a>
+      </div>
+    </nav>
+    
+    <main style="flex: 1; overflow-y: auto; width: 100%;">
+      <div style="width: 100%; padding: 60px 40px;">
+        <div style="text-align: center; margin-bottom: 60px;">
+          <h2 style="font-size: 48px; font-weight: bold; margin-bottom: 16px;">Delicious Cakes for Every Occasion</h2>
+          <p style="font-size: 20px; opacity: 0.8; max-width: 600px; margin: 0 auto;">Handcrafted with premium ingredients and love</p>
+        </div>
+        <div style="max-width: 1200px; margin: 0 auto;">
+          <h3 style="font-size: 32px; font-weight: bold; margin-bottom: 32px; text-align: center;">Our Cakes</h3>
+          <div id="products-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
+            </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script>
+    const defaultConfig = {
+      background_color: "#fef3f3",
+      surface_color: "#ffffff",
+      text_color: "#1f2937",
+      primary_action_color: "#ec4899",
+      secondary_action_color: "#f472b6",
+      font_family: "ui-sans-serif, system-ui, -apple-system, sans-serif",
+      font_size: 16,
+      shop_name: "Sweet Delights Bakery",
+      tagline: "Freshly Baked with Love",
+      about_text: "Welcome to Sweet Delights Bakery! For over 15 years, we've been crafting the finest cakes using traditional recipes and premium ingredients. Each cake is made fresh daily with love and attention to detail.",
+      contact_heading: "Get In Touch"
+    };
+
+    const products = [
+      { id: 1, name: "Chocolate Dream", price: 35, emoji: "🍫" },
+      { id: 2, name: "Strawberry Delight", price: 32, emoji: "🍓" },
+      { id: 3, name: "Vanilla Classic", price: 28, emoji: "🍰" },
+      { id: 4, name: "Red Velvet", price: 38, emoji: "❤️" },
+      { id: 5, name: "Lemon Zest", price: 30, emoji: "🍋" },
+      { id: 6, name: "Carrot Cake", price: 33, emoji: "🥕" }
+    ];
+
+    // --- State Management Functions (Using LocalStorage) ---
+    function getCart() {
+      try {
+        const cartData = localStorage.getItem('cakeShopCart');
+        return cartData ? JSON.parse(cartData) : [];
+      } catch (e) {
+        console.error("Error reading cart from localStorage:", e);
+        return [];
+      }
+    }
+
+    function saveCart(cart) {
+      try {
+        localStorage.setItem('cakeShopCart', JSON.stringify(cart));
+      } catch (e) {
+        console.error("Error saving cart to localStorage:", e);
+      }
+    }
+
+    let contactSubmissions = [];
+    const dataHandler = {
+      onDataChanged(data) {
+        contactSubmissions = data;
+      }
+    };
+    // --------------------------------------------------------
+    
+    async function onConfigChange(config) {
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseFontStack = 'ui-sans-serif, system-ui, -apple-system, sans-serif';
+      const baseSize = config.font_size || defaultConfig.font_size;
+      
+      document.body.style.background = config.background_color || defaultConfig.background_color;
+      document.body.style.color = config.text_color || defaultConfig.text_color;
+      document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      
+      document.getElementById('navbar').style.background = config.surface_color || defaultConfig.surface_color;
+      document.getElementById('navbar').style.color = config.text_color || defaultConfig.text_color;
+      
+      document.getElementById('shop-name').style.fontSize = `${baseSize * 1.75}px`;
+      document.getElementById('tagline').style.fontSize = `${baseSize * 0.875}px`;
+      
+      document.getElementById('shop-name').textContent = config.shop_name || defaultConfig.shop_name;
+      document.getElementById('tagline').textContent = config.tagline || defaultConfig.tagline;
+      
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.style.color = config.text_color || defaultConfig.text_color;
+        link.style.fontSize = `${baseSize}px`;
+      });
+      
+      const cartBadge = document.getElementById('cart-badge');
+      cartBadge.style.background = config.primary_action_color || defaultConfig.primary_action_color;
+      cartBadge.style.color = config.surface_color || defaultConfig.surface_color;
+      
+      const allH2 = document.querySelectorAll('h2');
+      allH2.forEach(h2 => {
+        h2.style.fontSize = `${baseSize * 3}px`;
+        h2.style.color = config.text_color || defaultConfig.text_color;
+      });
+      
+      const allH3 = document.querySelectorAll('h3');
+      allH3.forEach(h3 => {
+        h3.style.fontSize = `${baseSize * 2}px`;
+        h3.style.color = config.text_color || defaultConfig.text_color;
+      });
+      
+      const allParagraphs = document.querySelectorAll('p');
+      allParagraphs.forEach(p => {
+        if (!p.id) {
+          p.style.fontSize = `${baseSize * 1.125}px`;
+        }
+      });
+      
+      // Home Page specific render call
+      renderProducts();
+      updateCartBadge();
+    }
+
+    function renderProducts() {
+      const config = window.elementSdk?.config || defaultConfig;
+      const grid = document.getElementById('products-grid');
+      grid.innerHTML = products.map(product => `
+        <div class="product-card" style="background: ${config.surface_color || defaultConfig.surface_color}; padding: 24px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+          <div style="font-size: 80px; margin-bottom: 16px;">${product.emoji}</div>
+          <h4 style="font-size: ${(config.font_size || defaultConfig.font_size) * 1.25}px; font-weight: 600; margin-bottom: 8px; color: ${config.text_color || defaultConfig.text_color};">${product.name}</h4>
+          <p style="font-size: ${(config.font_size || defaultConfig.font_size) * 1.5}px; font-weight: bold; margin-bottom: 16px; color: ${config.primary_action_color || defaultConfig.primary_action_color};">$${product.price}</p>
+          <button onclick="addToCart(${product.id})" class="btn-primary" style="width: 100%; padding: 12px 24px; background: ${config.primary_action_color || defaultConfig.primary_action_color}; color: ${config.surface_color || defaultConfig.surface_color}; border: none; border-radius: 8px; font-size: ${(config.font_size || defaultConfig.font_size) * 1.125}px; font-weight: 600; cursor: pointer;">
+            Add to Cart
+          </button>
+        </div>
+      `).join('');
+    }
+
+    window.addToCart = function(productId) { // Make global for onclick
+      let cart = getCart();
+      const product = products.find(p => p.id === productId);
+      const existingItem = cart.find(item => item.id === productId);
+      
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+      
+      saveCart(cart);
+      updateCartBadge();
+      showToast('Added to cart!');
+    }
+
+    function updateCartBadge() {
+      const cart = getCart();
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById('cart-badge').textContent = totalItems;
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
+    }
+
+    async function init() {
+      if (window.dataSdk) {
+        const initResult = await window.dataSdk.init(dataHandler);
+        if (!initResult.isOk) {
+          console.error('Failed to initialize data SDK');
+        }
+      }
+      
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange,
+          mapToCapabilities: (config) => ({
+            recolorables: [
+              { get: () => config.background_color || defaultConfig.background_color, set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); } },
+              { get: () => config.surface_color || defaultConfig.surface_color, set: (value) => { config.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); } },
+              { get: () => config.text_color || defaultConfig.text_color, set: (
