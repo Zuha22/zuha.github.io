@@ -11,3 +11,36 @@ function addToCart(name, price) {
 
     alert(`${name} added to cart!`);
 }
+let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+function renderCart() {
+    const tbody = document.getElementById("cart-items");
+    const totalEl = document.getElementById("cart-total");
+
+    tbody.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += Number(item.price);
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${item.name}</td>
+            <td>₹${item.price}</td>
+            <td><button class="remove-btn" onclick="removeFromCart(${index})">Remove</button></td>
+        `;
+
+        tbody.appendChild(row);
+    });
+
+    totalEl.textContent = total;
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+}
+
+renderCart();
