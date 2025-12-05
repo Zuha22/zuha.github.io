@@ -36,3 +36,5 @@ window.addEventListener("resize", function(){
     $(".navbar-brand").html("<img src='https://res.cloudinary.com/dbqqjaqqa/image/upload/v1489836162/smaller_size_logo_wigzr1.png'>");
   }
 });
+<script src="script.js"></script>
+
