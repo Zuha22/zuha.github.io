@@ -1,3 +1,25 @@
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function addToCart(name, price) {
+  cart.push({name, price});
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert(name + " added to cart");
+}
+
+// display cart page
+if (location.pathname.includes("cart.html")) {
+  let table = document.getElementById("cartTable");
+  let total = 0;
+
+  cart.forEach(item => {
+    let row = table.insertRow();
+    row.insertCell(0).innerHTML = item.name;
+    row.insertCell(1).innerHTML = "₹" + item.price;
+    total += item.price;
+  });
+
+  document.getElementById("total").innerHTML = "Total: ₹" + total;
+}
 jQuery("#content1-headline1").fitText(1.0);
 jQuery("#content1-headline2").fitText(1.0);
 jQuery("#content1-headline3").fitText(1.0);
